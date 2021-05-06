@@ -12,5 +12,6 @@ _start:
 	syscall
 	msg db '/bin/sh',0 
 	
-; nasm -f elf64 -o s64.o s64-1.asm
-; ld -o s64 s64.o
+; nasm -f elf64 -o binsh.o binsh.asm
+; ld -o binsh binsh.o
+; https://0x00sec.org/t/linux-infecting-running-processes/1097
