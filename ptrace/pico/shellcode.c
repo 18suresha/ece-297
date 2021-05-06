@@ -1,0 +1,11 @@
+// http://hackoftheday.securitytube.net/2013/04/demystifying-execve-shellcode-stack.html
+
+#include <stdio.h>
+#include <string.h>
+
+unsigned char code[] = "\x48\x31\xc0\x48\x89\xc2\x48\x8d\x34\x25\xab\x00\x40\x00\x48\x8d\x3d\x04\x00\x00\x00\x04\x3b\x0f\x05\x2f\x62\x69\x6e\x2f\x63\x61\x74\x00\x2f\x62\x69\x6e\x2f\x63\x61\x74\x00\xa2\x00\x40";
+main() {
+  printf("Shellcode Length:  %d\n", strlen(code));
+	int (*ret)() = (int(*)())code;
+	ret();
+}

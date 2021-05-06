@@ -3,11 +3,11 @@ section .text
  
 _start:
 	xor rax,rax
-	mov rdx,rax 		; No Env
-	mov rsi,rax		; No argv
+	mov rdx,rax
+	mov rsi,rax	
 	lea rdi, [rel msg]
 
-	add al, 0x3b
+	mov rax, 0x3b ; syscall for execve
 
 	syscall
 	msg db '/bin/sh',0 
