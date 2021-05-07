@@ -7,20 +7,20 @@
 .globl _start
 
 _start:
-    # third argument of execve is envp, set to NULL
+    # set envp to NULL
     xor %rdx, %rdx 
 
-    # push NULL to the stack, argv terminator
+    # NULL acts as argv array terminator
     pushq %rdx 
 
-    # first argument to execve is the file name
+    # rdi is file name
     leaq name, %rdi
 
 
-    # also argv[0]
+    # file name is also argv[0]
     push %rdi
 
-    # second argument to execve is argv
+    # set argv to point to top of stack as NULL and file name were pushed (acts as NULL-terminated array)
     mov %rsp, %rsi
 
     # 59 is syscall number for execve 

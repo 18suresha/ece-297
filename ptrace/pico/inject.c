@@ -72,7 +72,7 @@ int main(int argc, char * argv[]) {
     exit(1);
   }
 
-  // inject code into instrution pointer's current position
+  // inject code into instruction pointer's current position
 
   printf("+ Injecting shell code at %p\n", (void * ) regs.rip);
   inject_data(target, shellcode, (void * ) regs.rip, SHELLCODE_SIZE);
